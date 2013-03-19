@@ -17,7 +17,16 @@
 # limitations under the License.
 #
 
-group "icat" do
+include_recipe 'build-essential'
+
+gem_package "ruby-shadow" do
+  action :install
+end
+
+include_recipe 'glassfish'
+
+
+group "glassfish-admin" do
   gid 99
 end
 
@@ -25,13 +34,23 @@ user "glassfish" do
   home "/home/glassfish3"
   gid 99
   shell "/bin/bash"
-  password "glassfish" 
 end
+
+# ENV['AS_ADMIN_PASSWORD'] = "adminadmin" #node[:icat][:glassfish_password]
+
+# bash "env_test0" do
+#   code <<-EOH
+#   echo $AS_ADMIN_PASSWORD
+#   EOH
+# end
 
 # Example from git
 # Create a basic domain that logs to a central graylog server
-glassfish_domain "my_domain" do
+glassfish_domain "domain1" do
   port 8080
   admin_port 4848
+  username "admin"
+  password "adminadmin"
+  password_file "testpassword"
   #extra_libraries ['https://github.com/downloads/realityforge/gelf4j/gelf4j-0.9-all.jar']
 end
