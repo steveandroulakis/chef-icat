@@ -1,0 +1,12 @@
+[submodule "cookbooks/glassfish"]
+	path = cookbooks/glassfish
+	url = git@github.com:steveandroulakis/chef-glassfish.git
+[submodule "cookbooks/authbind"]
+	path = cookbooks/authbind
+	url = git@github.com:steveandroulakis/chef-authbind.git
+[submodule "cookbooks/cutlery"]
+	path = cookbooks/cutlery
+	url = git://github.com/realityforge/chef-cutlery.git
+[submodule "cookbooks/java"]
+	path = cookbooks/java
+	url = git://github.com/opscode-cookbooks/java.git
