@@ -1,5 +1,8 @@
 Vagrant::Config.run do |config|
   config.vm.box = "lucid32"
+  config.vm.forward_port 4848, 4848
+  config.vm.forward_port 8080, 8080  
+  config.vm.forward_port 8181, 8181
    config.vm.provision :chef_solo do |chef|
      chef.cookbooks_path = "cookbooks"
      chef.add_recipe "icat"
@@ -11,13 +14,13 @@ Vagrant::Config.run do |config|
        :oracle => {
            "accept_oracle_download_terms" => true
            }      
-      },
-      # :icat => {
-      #   :glassfish_password => "adminadmin",
-      # },
-      :glassfish => {
-        :username => "admin",
       }
+      # # :icat => {
+      # #   :glassfish_password => "adminadmin",
+      # # },
+      # :glassfish => {
+      #   :username => "admin",
+      # }
      }     
   end 
 end
