@@ -17,30 +17,37 @@
 # limitations under the License.
 #
 
+# add build tools like gcc
 include_recipe 'build-essential'
+
+# apt-get update
 include_recipe 'apt'
 
-package "expect" do
-  action :install
-end
-
+# add ruby shadow for passwording
 gem_package "ruby-shadow" do
   action :install
 end
 
+# install glassfish
 include_recipe 'glassfish'
+
+# install subversion
 include_recipe 'subversion'
 
+# add unix group
 group "glassfish-admin" do
   gid 99
 end
 
+# add unix user
 user "glassfish3" do
   home "/home/glassfish3"
   gid 99
   shell "/bin/bash"
 end
 
+# create glassfish domain
+# TODO: testpassword productionising
 glassfish_domain "domain1" do
   port 8080
   admin_port 4848
@@ -49,6 +56,7 @@ glassfish_domain "domain1" do
   password_file "testpassword"
 end
 
+# enable secure admin so we can log in remotely
 glassfish_secure_admin "domain1 Remote Access" do
    domain_name "domain1"
    username "admin"
@@ -56,17 +64,14 @@ glassfish_secure_admin "domain1 Remote Access" do
    action :enable
 end
 
+# create glassfish3 user home directory
 directory "/home/glassfish3/" do
   mode 0755
   owner "glassfish3"
   action :create
 end
 
-# ENV['JAVA_HOME'] = "adminadmin"
-# ENV['GLASSFISH_HOME'] = "glassfish"
-# ENV['ICAT_HOME'] = "ii"
-# ENV['DB_HOME'] = "ii"
-# ENV['ICAT_HOME'] = "dq"
+# add glassfish admin credentials to unix env to run icat's included scripts
 ENV['AS_ADMIN_USER'] = "admin"
 ENV['AS_ADMIN_PASSWORDFILE'] = "/testpassword"
 
@@ -74,7 +79,7 @@ link "/home/glassfish3/glassfish3" do
   to "/usr/local/glassfish"
 end
 
-# checkout svn
+# checkout ICAT from svn
 bash "svn_checkout_icat" do
   cwd "/home/glassfish3"
   user "glassfish3"
@@ -84,7 +89,7 @@ bash "svn_checkout_icat" do
     EOH
 end
 
-# copy properties files
+# copy properties files to glassfish domains
 bash "copy_properties" do
   code <<-EOH
     cp /home/glassfish3/icat42/icat.ear.config/icat.properties /home/glassfish3/glassfish3/glassfish/domains/domain1/config/
@@ -92,38 +97,12 @@ bash "copy_properties" do
     EOH
 end
 
-# asadmin start­database ­­dbhost 127.0.0.1
+# start derby dev database
 glassfish_asadmin "start-database --dbhost 127.0.0.1" do
    domain_name 'domain1'
 end
 
-# run scripts.. create.sh
-# bash "shell glassfish login automation" do
-#   code <<-EOH
-#     cat >logincmds <<EOF
-#     spawn /usr/local/glassfish/glassfish/bin/asadmin login
-#     expect -ex {Enter admin user name }
-#     send -- {admin\n}
-#     expect -ex {Enter admin password}
-#     send -- {adminadmin\n}
-#     interact
-#     EOH
-# end
-
-# # run scripts.. create.sh
-# bash "shell glassfish login" do
-#   code <<-EOH
-#     expect -f /logincmds
-#     EOH
-# end
-
-# glassfish_asadmin "login" do
-#    username "admin"
-#    password_file "/testpassword"    
-#    domain_name 'domain1'
-# end
-
-# run scripts.. create.sh
+# run icat scripts.. icat create.sh
 bash "create icat ear" do
   cwd "/home/glassfish3/icat42/icat.ear.config"
   code <<-EOH
@@ -131,7 +110,7 @@ bash "create icat ear" do
     EOH
 end
 
-# run scripts.. create.sh
+# run icat scripts.. authn create.sh
 bash "create authn_db ear" do
   cwd "/home/glassfish3/icat42/authn_db.ear.config"
   code <<-EOH
@@ -139,21 +118,25 @@ bash "create authn_db ear" do
     EOH
 end
 
-# deploy
+# deploy icat's auth
+# TODO: remove hard-coded path
 glassfish_asadmin "deploy /home/glassfish3/icat42/authn_db.ear-1.0.0.ear" do
    username "admin"
    password_file "testpassword"    
    domain_name 'domain1'
 end
 
+# deploy icat app
+# TODO: remove hard-coded path
 glassfish_asadmin "deploy /home/glassfish3/icat42/icat.ear-4.2.0.ear" do
    username "admin"
    password_file "testpassword"    
    domain_name 'domain1'
 end
 
-# and usertable.sh
+# run ICAT user creation script
 # hand-written because ij is not necessarily on the path
+# TODO: remove hard-coded path
 bash "create usertable" do
   cwd "/home/glassfish3/icat42/usertable_init"
   code <<-EOH
@@ -161,4 +144,4 @@ bash "create usertable" do
     EOH
 end
 
-# symlink log
+# TODO: symlink log

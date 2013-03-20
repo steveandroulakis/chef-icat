@@ -15,12 +15,6 @@ Vagrant::Config.run do |config|
            "accept_oracle_download_terms" => true
            }      
       }
-      # # :icat => {
-      # #   :glassfish_password => "adminadmin",
-      # # },
-      # :glassfish => {
-      #   :username => "admin",
-      # }
      }     
   end 
 end
