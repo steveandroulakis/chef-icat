@@ -44,6 +44,7 @@ end
 # icat domain permissions
 bash "domain permissions" do
   code <<-EOH
+    mkdir -p /usr/local/glassfish/glassfish/domains/icat
     chmod -R 775 /usr/local/glassfish/glassfish/domains
     EOH
 end
