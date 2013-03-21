@@ -34,11 +34,6 @@ include_recipe 'glassfish'
 # install subversion
 include_recipe 'subversion'
 
-# add unix group
-group "glassfish-admin" do
-  gid 99
-end
-
 # add unix user
 user "glassfish3" do
   home "/home/glassfish3"
@@ -48,7 +43,7 @@ end
 
 # create glassfish domain
 # TODO: testpassword productionising
-glassfish_domain "domain1" do
+glassfish_domain "icat" do
   port 8080
   admin_port 4848
   username "admin"
@@ -57,8 +52,8 @@ glassfish_domain "domain1" do
 end
 
 # enable secure admin so we can log in remotely
-glassfish_secure_admin "domain1 Remote Access" do
-   domain_name "domain1"
+glassfish_secure_admin "icat Remote Access" do
+   domain_name "icat"
    username "admin"
    password_file "testpassword"
    action :enable
@@ -83,7 +78,7 @@ end
 bash "svn_checkout_icat" do
   cwd "/home/glassfish3"
   user "glassfish3"
-  group "glassfish-admin"
+  group "1001"
   code <<-EOH
     svn co https://icatproject.googlecode.com/svn/ops/icat42
     EOH
@@ -92,14 +87,14 @@ end
 # copy properties files to glassfish domains
 bash "copy_properties" do
   code <<-EOH
-    cp /home/glassfish3/icat42/icat.ear.config/icat.properties /home/glassfish3/glassfish3/glassfish/domains/domain1/config/
-    cp /home/glassfish3/icat42/authn_db.ear.config/authn_db.properties /home/glassfish3/glassfish3/glassfish/domains/domain1/
+    cp /home/glassfish3/icat42/icat.ear.config/icat.properties /home/glassfish3/glassfish3/glassfish/domains/icat/config/
+    cp /home/glassfish3/icat42/authn_db.ear.config/authn_db.properties /home/glassfish3/glassfish3/glassfish/domains/icat/
     EOH
 end
 
 # start derby dev database
 glassfish_asadmin "start-database --dbhost 127.0.0.1" do
-   domain_name 'domain1'
+   domain_name 'icat'
 end
 
 # run icat scripts.. icat create.sh
@@ -123,7 +118,7 @@ end
 glassfish_asadmin "deploy /home/glassfish3/icat42/authn_db.ear-1.0.0.ear" do
    username "admin"
    password_file "testpassword"    
-   domain_name 'domain1'
+   domain_name 'icat'
 end
 
 # deploy icat app
@@ -131,7 +126,7 @@ end
 glassfish_asadmin "deploy /home/glassfish3/icat42/icat.ear-4.2.0.ear" do
    username "admin"
    password_file "testpassword"    
-   domain_name 'domain1'
+   domain_name 'icat'
 end
 
 # run ICAT user creation script
