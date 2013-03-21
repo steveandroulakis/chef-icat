@@ -4,7 +4,7 @@ Builds an [ICAT](http://code.google.com/p/icatproject) metadata store server rou
 
 Most of the action occurs in [this file](https://github.com/steveandroulakis/chef-icat/blob/master/cookbooks/icat/recipes/default.rb).
 
-Works on Ubuntu Lucid 32-bit (vagrant box) and Ubuntu Precise 64-bit (on the NeCTAR cloud). Untested for others so far. Red Hat Equivalents shouldn't work, but other versions of Ubuntu may.
+Tested and working on Ubuntu Lucid 32-bit (vagrant box) and Ubuntu Precise 64-bit (on the NeCTAR cloud). Untested for other operating systems so far. Red Hat Equivalents shouldn't work, but other versions of Ubuntu after version 10 should.
 
 Option 1: Deployment on your local machine with Vagrant
 -------------------------------------------------------
