@@ -16,7 +16,10 @@ git submodule update
 vagrant up
 ```
 
-Or non-vagrant (as root)
+Or a non-Vagrant setup, appropriate for a server.
+
+(as root)
+
 ```
 sudo true && curl -L https://www.opscode.com/chef/install.sh | sudo bash
 sudo apt-get update
