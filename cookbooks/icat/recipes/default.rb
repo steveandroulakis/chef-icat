@@ -34,11 +34,9 @@ include_recipe 'glassfish'
 # install subversion
 include_recipe 'subversion'
 
-# add unix user
-user "glassfish3" do
-  home "/home/glassfish3"
+# add unix group
+group "glassfish-admin" do
   gid 99
-  shell "/bin/bash"
 end
 
 # add unix user
@@ -85,7 +83,7 @@ end
 bash "svn_checkout_icat" do
   cwd "/home/glassfish3"
   user "glassfish3"
-  group "1001"
+  group "99"
   code <<-EOH
     svn co https://icatproject.googlecode.com/svn/ops/icat42
     EOH
