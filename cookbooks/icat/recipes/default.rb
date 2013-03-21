@@ -46,13 +46,6 @@ user "glassfish3" do
   shell "/bin/bash"
 end
 
-# create domain directory
-directory "/usr/local/glassfish/glassfish/domains/domain1" do
-  mode 0755
-  owner "glassfish3"
-  action :create
-end
-
 # create glassfish domain
 # TODO: testpassword productionising
 glassfish_domain "domain1" do
