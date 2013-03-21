@@ -17,7 +17,8 @@ vagrant up
 ```
 
 Or a non-Vagrant setup, appropriate for a server.
-_Note: If your NeCTAR cloud node is complaining about not being able to resolve its hostname then fix it first before running this guide (add `hostname 127.0.0.1` to `/etc/hosts`). This is a NeCTAR cloud issue.
+
+_Note: If your NeCTAR cloud node is complaining about not being able to resolve its hostname then fix it first before running this guide (add `hostname 127.0.0.1` to `/etc/hosts`). This is a NeCTAR cloud issue._
 
 (run the following as root)
 
@@ -34,7 +35,7 @@ git submodule update
 chef-solo -c solo.rb -j node.json
 ```
 
-Access the server by the `http://<ip>:4848` and username:password `admin:adminadmin`.
+Access the server by `http://<ip>:4848` and username:password `admin:adminadmin`.
 
 * TODO: make the start/stop glassfish-icat also work with the database
 * TODO: clean up hard-coded paths in recipe
