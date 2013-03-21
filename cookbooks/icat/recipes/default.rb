@@ -41,6 +41,12 @@ user "glassfish3" do
   shell "/bin/bash"
 end
 
+# add unix user
+user "glassfish3" do
+  home "/home/glassfish3"
+  gid 99
+  shell "/bin/bash"
+end
 
 # create glassfish domain
 # TODO: testpassword productionising
