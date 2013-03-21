@@ -2,7 +2,9 @@ chef-icat
 =========
 A chef cookbook for deploying ICAT
 
-Works on Vagrant's Lucid32 box thus far.
+Most of the action occurs in [this file](https://github.com/steveandroulakis/chef-icat/blob/master/cookbooks/icat/recipes/default.rb)
+
+Works on Ubuntu Lucid 32 thus far. Untested for others.
 
 Follow the [vagrantup.com/v1/docs/getting-started/index.html](Vagrant getting started guide) up to the point of adding the lucid32 box, then follow the commands below.
 
