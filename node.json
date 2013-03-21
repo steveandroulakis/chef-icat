@@ -1,0 +1,9 @@
+{
+  "java": {
+    "install_flavor": "oracle",
+    "jdk_version": "7",
+  },
+  "run_list": [
+    "recipe[icat]"
+  ]
+}
