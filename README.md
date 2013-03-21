@@ -1,4 +1,4 @@
-chef-icat
+ICAT Deployment Chef Cookbook
 =========
 Builds an [ICAT](http://code.google.com/p/icatproject) metadata store server roughly based on this [README](https://icatproject.googlecode.com/svn-history/r2152/ops/icat42/readme.txt).
 
@@ -6,6 +6,8 @@ Most of the action occurs in [this file](https://github.com/steveandroulakis/che
 
 Works on Ubuntu Lucid 32-bit (vagrant box) and Ubuntu Precise 64-bit (on the NeCTAR cloud). Untested for others so far. Red Hat Equivalents shouldn't work, but other versions of Ubuntu may.
 
+Option 1: Deployment on your local machine with Vagrant
+-------------------------------------------------------
 Follow the [Vagrant getting started guide](http://vagrantup.com/v1/docs/getting-started/index.html) up to the point of adding the lucid32 box, then follow the commands below.
 
 ```
@@ -16,7 +18,9 @@ git submodule update
 vagrant up
 ```
 
-Or a non-Vagrant setup, appropriate for a server.
+Option 2: Install on a server (non-vagrant chef build)
+-------------------------------------------------------
+Non-vagrant setup.
 
 _Note: If your NeCTAR cloud node is complaining about not being able to resolve its hostname then fix it first before running this guide (add `hostname 127.0.0.1` to `/etc/hosts`). This is a NeCTAR cloud issue._
 
@@ -35,7 +39,13 @@ git submodule update
 chef-solo -c solo.rb -j node.json
 ```
 
+Usage
+-------------------------------------------------------
+
 Access the server by `http://<ip>:4848` and username:password `admin:adminadmin`.
+
+To Do
+-------------------------------------------------------
 
 * TODO: make the start/stop glassfish-icat also work with the database
 * TODO: clean up hard-coded paths in recipe
