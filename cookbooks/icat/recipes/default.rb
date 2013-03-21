@@ -54,7 +54,7 @@ glassfish_domain "icat" do
   username "admin"
   password "adminadmin"
   password_file "testpassword"
-  max_stack_size "256"
+  max_stack_size 256
 end
 
 # enable secure admin so we can log in remotely
