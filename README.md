@@ -33,8 +33,8 @@ git submodule update
 chef-solo -c solo.rb -j node.json
 ```
 
-* TODO: set up paths for asadmin and starting/stopping db
+* TODO: make the start/stop glassfish-icat also work with the database
 * TODO: clean up hard-coded paths in recipe
-* TODO: test on other VMs that aren't vagrant's lucid32 box
-* TODO: make work on repeated calls of chef
-* TODO: make more paths settable via external chef node configuration (eg. admin creds)
+* TODO: test working after system restart
+* TODO: make compatible with running chef multiple times (for later updates etc)
+* TODO: make some paths and basic actions settable via external chef node configuration (eg. admin credentials)
