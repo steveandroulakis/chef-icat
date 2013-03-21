@@ -9,4 +9,4 @@
 	url = git://github.com/realityforge/chef-cutlery.git
 [submodule "cookbooks/java"]
 	path = cookbooks/java
-	url = git://github.com/opscode-cookbooks/java.git
+	url = git://github.com/steveandroulakis/java.git
