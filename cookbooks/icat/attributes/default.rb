@@ -6,4 +6,3 @@ include_attribute 'glassfish'
 
 default['icat']['glassfish_password'] = 'adminadmin'
 default['java']['oracle']['accept_oracle_download_terms'] = true
-

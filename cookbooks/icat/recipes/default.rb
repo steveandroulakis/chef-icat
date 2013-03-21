@@ -54,6 +54,7 @@ glassfish_domain "icat" do
   username "admin"
   password "adminadmin"
   password_file "testpassword"
+  max_stack_size "256"
 end
 
 # enable secure admin so we can log in remotely
@@ -83,7 +84,7 @@ end
 bash "svn_checkout_icat" do
   cwd "/home/glassfish3"
   user "glassfish3"
-  group "99"
+  group "glassfish-admin"
   code <<-EOH
     svn co https://icatproject.googlecode.com/svn/ops/icat42
     EOH
