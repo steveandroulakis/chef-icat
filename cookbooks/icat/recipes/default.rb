@@ -41,13 +41,6 @@ user "glassfish3" do
   shell "/bin/bash"
 end
 
-# icat domain permissions
-bash "domain permissions" do
-  code <<-EOH
-    mkdir -p /usr/local/glassfish/glassfish/domains/icat
-    chmod -R 775 /usr/local/glassfish/glassfish/domains
-    EOH
-end
 
 # create glassfish domain
 # TODO: testpassword productionising
